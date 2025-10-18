@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link';
 import { X } from 'lucide-react';
 import { Menu } from 'lucide-react';
+import MainButton from '../ui/MainButton';
 
 function MobileNav() {
     const [isNavOpen, setIsNavopen] = useState(false)
@@ -17,15 +18,26 @@ function MobileNav() {
 
                 <nav className='flex  flex-col  gap-10 items-center justify-center '>
                     <ul className="flex gap-10 items-center flex-col ">
-                        <Link href={''}>About</Link>
-                        <Link href={''}>Service</Link>
-                        <Link href={''}>Product</Link>
-                        <Link href={''}>Pricing</Link>
+                        <Link href={'/'}>Home</Link>
+                        <Link href={'/about'}>About</Link>
+                        <Link href={'/service'}>Service</Link>
+                        <Link href={'/pricing'}>Pricing</Link>
                     </ul>
 
                     <div className="flex items-center gap-3  ">
-                        <button className="bg-white text-black text-sm w-24 h-9 rounded-3xl font-semibold border cursor-pointer">Login</button>
-                        <button className="bg-black text-white text-sm w-24 h-9 rounded-3xl font-semibold cursor-pointer ">Register</button>
+                        <Link href={'/auth/sign-in'}>
+                            <MainButton
+                                text="Login"
+                                className="w-24 h-9 bg-white text-black border hover:bg-gray-100 text-sm font-semibold  "
+                            />
+                        </Link>
+                        <Link href={'/auth/sign-up'}>
+                            <MainButton
+                                text="Register"
+                                className="w-24 h-9 bg-black text-white  hover:bg-gray-600 text-sm font-semibold"
+                            />
+                        </Link>
+
                     </div>
                 </nav>
             </div>
