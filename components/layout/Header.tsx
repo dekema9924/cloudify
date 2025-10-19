@@ -11,16 +11,14 @@ export default function Header() {
         <>
             <header className="flex justify-between md:mt-7 h-20  relative  items-center ">
                 {/* logo */}
-                <Link href={'/'} >
+                <Link className="md:ml-10" href={'/'} >
                     <Logo />
                 </Link>
 
                 {/* nav links */}
-                <nav className="md:flex  items-center gap-10 hidden ">
+                <nav className="md:flex  items-center gap-10 hidden md:mr-10 ">
                     <ul className="flex gap-10 items-center  ">
                         <Link href={'/'}>Home</Link>
-                        <Link href={'/about'}>About</Link>
-                        <Link href={'/service'}>Service</Link>
                         <Link href={'/pricing'}>Pricing</Link>
                     </ul>
 
