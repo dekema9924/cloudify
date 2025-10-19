@@ -1,7 +1,8 @@
+import SignIn from '@/components/layout/SignIn'
 import React from 'react'
 
-export default function page() {
+export default function Loginpage() {
     return (
-        <div>login</div>
+        <SignIn />
     )
 }

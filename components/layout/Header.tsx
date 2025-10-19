@@ -1,32 +1,18 @@
-import Image from "next/image"
-import coin from '@/public/images/icons/coin.png'
-import { Coiny } from "next/font/google"
+
 import Link from "next/link";
 import MobileNav from "@/components/layout/MobileNav";
 import MainButton from "../ui/MainButton";
+import Logo from "./Logo";
 
 
-
-
-// logo font
-const coiny = Coiny({
-    weight: "400",
-    subsets: ["latin"],
-});
 
 export default function Header() {
     return (
         <>
             <header className="flex justify-between md:mt-7 h-20  relative  items-center ">
                 {/* logo */}
-                <Link href={'/'} className="flex items-center gap-1 ml-5 md:ml-0">
-                    <Image
-                        src={coin}
-                        width={44}
-                        height={44}
-                        alt="gold-coin"
-                    />
-                    <h1 className={`${coiny.className} flex font-bold uppercase text-lg`} >Cloudify</h1>
+                <Link href={'/'} >
+                    <Logo />
                 </Link>
 
                 {/* nav links */}
