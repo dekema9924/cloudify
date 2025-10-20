@@ -18,7 +18,7 @@ export default function SlideUpAnimation({ children, className }: SlideUpAnimati
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 60, damping: 12, duration: 0.6 }}
             className={className}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: false }}
         >
             {children}
         </motion.div>

@@ -14,7 +14,7 @@ const poppins = Poppins({
 export default function HomeFeatures() {
     return (
         <>
-            <section className=" flex md:w-11/12 md:m-auto md:flex-row flex-col items-center md:mt-30 mt-14 md:gap-20 gap-6 justify-center mb-20">
+            <section className=" flex md:w-11/12 md:m-auto md:flex-row flex-col items-center md:mt-30 mt-14 md:gap-20 gap-6 justify-center mb-20 lg:border lg:my-66 lg:py-20 border-gray-200/10 p-6 rounded-3xl bg-gray-300/50 shadow-lg">
 
                 <SlideUpAnimation
                     className="w-11/12 mx-auto flex justify-center"

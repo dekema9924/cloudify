@@ -18,8 +18,8 @@ function MobileNav() {
 
                 <nav className='flex  flex-col  gap-10 items-center justify-center '>
                     <ul className="flex gap-10 items-center flex-col ">
-                        <Link href={'/'}>Home</Link>
-                        <Link href={'/pricing'}>Pricing</Link>
+                        <Link onClick={() => setIsNavopen(false)} href={'/'}>Home</Link>
+                        <Link onClick={() => setIsNavopen(false)} href={'/pricing'}>Pricing</Link>
                     </ul>
 
                     <div className="flex items-center gap-3  ">

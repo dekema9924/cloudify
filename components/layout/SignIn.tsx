@@ -9,6 +9,10 @@ import { Mail } from 'lucide-react';
 import { EyeClosed } from 'lucide-react';
 import { Eye } from 'lucide-react';
 import { useForm, SubmitHandler } from "react-hook-form"
+import { signinUser } from '@/lib/client/api/authClient'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation';
+
 
 type formFields = {
     email: string;
@@ -18,9 +22,20 @@ type formFields = {
 
 
 export default function SignIn() {
+    const router = useRouter();
     const [isPswrdHidden, setPswrdHidden] = useState(true)
     const { register, handleSubmit, formState: { errors } } = useForm<formFields>();
-    const onsubmit: SubmitHandler<formFields> = data => console.log(data);
+    const onsubmit: SubmitHandler<formFields> = async data => {
+        try {
+            const res = await signinUser(data.email, data.password);
+            console.log(res);
+            toast.success(res.message);
+            router.push('/dashboard');
+        } catch (err: any) {
+            console.error(err);
+            toast.error(err.message);
+        }
+    };
 
     return (
         <>

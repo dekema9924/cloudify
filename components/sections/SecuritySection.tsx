@@ -4,6 +4,7 @@ import React, { useRef } from 'react'
 import { motion, useScroll, useTransform, easeOut } from 'framer-motion'
 import Image from 'next/image'
 import MainButton from '../ui/MainButton'
+import folder from '@/public/images/home/folder.jpg'
 
 export default function SecuritySection() {
     const ref = useRef<HTMLDivElement | null>(null)
@@ -13,7 +14,7 @@ export default function SecuritySection() {
         offset: ['start 90%', 'end 10%'],
     })
 
-    const scale = useTransform(scrollYProgress, [0, 1], [0.85, 1])
+    const scale = useTransform(scrollYProgress, [0, 1], [0.75, 1])
     const opacity = useTransform(scrollYProgress, [0, 1], [0.6, 1])
 
     const y1 = useTransform(scrollYProgress, [0, 1], [30, -10])
@@ -28,7 +29,7 @@ export default function SecuritySection() {
                 opacity,
                 transition: 'transform 0.4s ease-out',
             }}
-            className="relative flex flex-col items-center justify-center min-h-[65vh] bg-gradient-to-b from-[#000000] to-[#11161f] text-white px-6 py-20 overflow-hidden rounded-3xl"
+            className="relative flex flex-col m-auto items-center justify-center min-h-[65vh] bg-gradient-to-b from-[#000000] to-[#abaeb3] text-white px-6 py-20 overflow-hidden rounded-3xl"
         >
             {/* Text */}
             <motion.div

@@ -1,10 +1,9 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import Logo from './Logo'
 
 export default function Footer() {
     return (
-        <footer className="bg-[#1f2225] text-gray-400 py-10 px-6 border-t ">
+        <footer className="bg-[#1f2225] text-gray-400 py-10 px-6 border-tv    ">
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
 
                 {/* Left Section — Logo & Tagline */}

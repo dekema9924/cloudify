@@ -9,7 +9,9 @@ import { EyeClosed } from 'lucide-react';
 import { Eye } from 'lucide-react';
 import { useForm, SubmitHandler } from "react-hook-form"
 import { User } from 'lucide-react';
-
+import { signupUser } from '@/lib/client/api/authClient'
+import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 
 type formFields = {
@@ -20,10 +22,20 @@ type formFields = {
 
 
 export default function SignUp() {
+    const router = useRouter();
     const [isPswrdHidden, setPswrdHidden] = useState(true)
-    const { register, handleSubmit, formState: { errors }, watch } = useForm<formFields>();
-    const onsubmit: SubmitHandler<formFields> = data => console.log(data);
-    console.log(watch("username")) // watch input value by passing the name of it
+    const { register, handleSubmit, formState: { errors, isSubmitting }, watch } = useForm<formFields>();
+    const onsubmit: SubmitHandler<formFields> = async data => {
+        try {
+            const res = await signupUser(data.username, data.email, data.password);
+            console.log(res);
+            toast.success(res.message);
+            router.push('/auth/sign-in');
+        } catch (err: any) {
+            console.error(err);
+            toast.error(err.message);
+        }
+    }
 
 
     return (
@@ -37,7 +49,7 @@ export default function SignUp() {
                 <div>
                     <div className='flex items-center relative'>
                         <input
-                            {...register("username", { required: "Username is required", maxLength: { value: 10, message: "username is too long" }, minLength: { value: 4, message: "username must be atleast 4 characters" } })}
+                            {...register("username", { required: "Username is required", maxLength: { value: 20, message: "username is too long" }, minLength: { value: 4, message: "username must be atleast 4 characters" } })}
                             type='text'
                             placeholder='Enter your username'
                             className='w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 '
@@ -70,7 +82,7 @@ export default function SignUp() {
                     <div>
                         <div className='flex items-center relative'>
                             <input
-                                {...register("password", { required: "password is required", maxLength: { value: 9, message: "password must be exactlt 9 characters" }, minLength: { value: 9, message: "password must be exactly 9 characters" } })}
+                                {...register("password", { required: "password is required", maxLength: { value: 15, message: "password must be  15 or less characters" }, minLength: { value: 6, message: "password must have atleast 6 characters" } })}
                                 type={isPswrdHidden ? "password" : "text"}
                                 placeholder='Enter your password'
                                 className='w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400'
@@ -93,6 +105,7 @@ export default function SignUp() {
 
                 <div>
                     <button
+                        disabled={isSubmitting}
                         type='submit'
                         className='w-full bg-blue-500 text-white py-2 rounded-xl text-sm font-semibold hover:bg-blue-600 transition'
                     >
