@@ -30,7 +30,7 @@ export default function SignIn() {
             const res = await signinUser(data.email, data.password);
             console.log(res);
             toast.success(res.message);
-            router.push('/dashboard');
+            router.push('/profile');
         } catch (err: any) {
             console.error(err);
             toast.error(err.message);

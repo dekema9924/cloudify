@@ -1,9 +1,10 @@
-import { use } from "react";
-import axiosInstance from "../../utils/axiosInstance";
+import axiosInstance from "../../../utils/axiosInstance";
 import axios from "axios";
 
 
 
+
+// log in
 export async function signupUser(username: string, email: string, password: string) {
   try {
     const response = await axiosInstance.post('/api/auth/signup', { username, email, password });
@@ -21,7 +22,7 @@ export async function signupUser(username: string, email: string, password: stri
 }
 
 
-
+//sign up/create account
 export async function signinUser(email: string, password: string) {
   try {
     const response = await axiosInstance.post('/api/auth/signin', { email, password });
@@ -34,6 +35,41 @@ export async function signinUser(email: string, password: string) {
     }
 
     console.error('Signup error:', message);
+    throw new Error(message);
+  }
+}
+
+//logout
+export async function signOut() {
+  try {
+    const response = await axiosInstance.get('/api/auth/signout');
+    return response;
+  } catch (error: unknown) {
+    let message = 'Failed to sign out';
+
+    if (axios.isAxiosError(error)) {
+      message = error.response?.data?.message || error.message;
+    }
+
+    console.error(' error:', message);
+    throw new Error(message);
+  }
+}
+
+
+//get user profile
+export async function getUserProfile() {
+  try {
+    const response = await axiosInstance.get('/api/profile');
+    return response.data;
+  } catch (error: unknown) {
+    let message = 'Failed to sign up';
+
+    if (axios.isAxiosError(error)) {
+      message = error.response?.data?.message || error.message;
+    }
+
+    console.error(' error:', message);
     throw new Error(message);
   }
 }
