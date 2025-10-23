@@ -74,3 +74,29 @@ export async function getUserProfile() {
   }
 }
 
+
+// /update avatar
+export async function updateAvatar(avatar: File) {
+  try {
+    const formData = new FormData();
+    formData.append('avatar', avatar);
+
+    const response = await axiosInstance.post('/api/auth/avatar', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response;
+  } catch (error: unknown) {
+    let message = 'Failed to upload file';
+
+    if (axios.isAxiosError(error)) {
+      message = error.response?.data?.message || error.message;
+    }
+
+    console.error('Upload error:', message);
+    throw new Error(message);
+  }
+}
+
+

@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
         hostname: 'fjord.dropboxstatic.com',
 
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com'
+      }
     ]
   },
 

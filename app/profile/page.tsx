@@ -1,5 +1,5 @@
 'use client';
-import { getUserProfile } from "@/lib/client/api/authClient";
+import { getUserProfile, updateAvatar } from "@/lib/client/api/authClient";
 import { setUserProfile } from "@/lib/client/features/userSlice";
 import { RootState } from "@/store/store";
 import { useEffect } from "react";
@@ -10,13 +10,14 @@ import Image from "next/image";
 import { MoveLeft } from 'lucide-react';
 import { useRouter } from "next/navigation";
 import { SquarePen } from 'lucide-react';
+import toast from "react-hot-toast";
 
 
 export interface UserProfile {
 
     username: string | null;
     email: string | null;
-    profileImageUrl: string | null;
+    profileImage: string | null;
     _id: string | null;
 
 }
@@ -28,14 +29,26 @@ export default function Profilepage() {
     const [profileImage, setProfileImage] = useState<string | null>(null);
     const router = useRouter()
 
-    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setProfileImage(reader.result as string);
-            };
-            reader.readAsDataURL(file);
+        console.log(file)
+        if (!file) return
+
+        const previreUrl = URL.createObjectURL(file)
+        setProfileImage(previreUrl)
+
+        try {
+            const res = await updateAvatar(file);
+            if (res.status == 200) {
+                router.refresh()
+
+            }
+            console.log(res);
+
+        } catch (error) {
+            console.error('Upload error:', error);
         }
     };
     useEffect(() => {
@@ -46,6 +59,17 @@ export default function Profilepage() {
             })
             .finally(() => setLoading(false));
     }, []);
+
+    useEffect(() => {
+        return () => {
+            if (profileImage) {
+                URL.revokeObjectURL(profileImage);
+            }
+        };
+    }, [profileImage]);
+
+
+
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -71,9 +95,11 @@ export default function Profilepage() {
 
                 {/* Profile Image Upload */}
                 <div className="flex flex-col items-center mb-6">
-                    {profileImage ? (
+                    {profileImage || storedUser.profileImage ? (
                         <Image
-                            src={profileImage}
+                            src={
+                                storedUser.profileImage ? storedUser?.profileImage : ""
+                            }
                             alt="Profile"
                             width={100}
                             height={100}
@@ -88,6 +114,7 @@ export default function Profilepage() {
                         Upload Profile Image
                         <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
                     </label>
+
                 </div>
 
                 {/* Account Info */}

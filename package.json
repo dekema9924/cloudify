@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.9.1",
     "axios": "^1.12.2",
     "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.8.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.546.0",
     "mongoose": "^8.19.1",

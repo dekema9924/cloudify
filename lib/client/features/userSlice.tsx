@@ -6,7 +6,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState: UserProfile = {
     email: null,
     username: null,
-    profileImageUrl: null,
+    profileImage: null,
     _id: null,
 
 };

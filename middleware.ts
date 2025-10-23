@@ -6,7 +6,7 @@ import type { NextRequest } from 'next/server';
 import { VerifyToken } from '@/lib/server/verifyToken'
 
 export async function middleware(req: NextRequest) {
-    const publicPaths = ['/api/auth/signin', '/api/auth/signup', '/api/auth/avatar'];// non protected routes. dont need topken to access
+    const publicPaths = ['/api/auth/signin', '/api/auth/signup',];// non protected routes. dont need topken to access
 
     if (publicPaths.some(path => req.nextUrl.pathname.startsWith(path))) {
         return NextResponse.next(); // allow route to run
