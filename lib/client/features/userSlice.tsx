@@ -1,4 +1,4 @@
-import { UserProfile } from "@/app/profile/page";
+import { UserProfile } from "@/app/dashboard/profile/page";
 import { createSlice } from "@reduxjs/toolkit";
 
 

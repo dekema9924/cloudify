@@ -7,8 +7,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import { MoveLeft } from 'lucide-react';
-import { useRouter } from "next/navigation";
 import { SquarePen } from 'lucide-react';
 import toast from "react-hot-toast";
 
@@ -27,13 +25,12 @@ export default function Profilepage() {
     const dispatch = useDispatch();
     const storedUser = useSelector((state: RootState) => state.user.value);
     const [profileImage, setProfileImage] = useState<string | null>(null);
-    const router = useRouter()
 
 
 
+    //upload pfp
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        console.log(file)
         if (!file) return
 
         const previreUrl = URL.createObjectURL(file)
@@ -42,7 +39,9 @@ export default function Profilepage() {
         try {
             const res = await updateAvatar(file);
             if (res.status == 200) {
-                router.refresh()
+                dispatch(setUserProfile({ profileImage: res.data.profileImage }))
+                setProfileImage(null)
+                toast.success(res.data.message)
 
             }
             console.log(res);
@@ -51,14 +50,18 @@ export default function Profilepage() {
             console.error('Upload error:', error);
         }
     };
+
+    //get user data on laod
     useEffect(() => {
         getUserProfile()
             .then((data) => {
                 dispatch(setUserProfile(data.user));
 
+
             })
             .finally(() => setLoading(false));
     }, []);
+
 
     useEffect(() => {
         return () => {
@@ -69,7 +72,6 @@ export default function Profilepage() {
     }, [profileImage]);
 
 
-
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -77,7 +79,7 @@ export default function Profilepage() {
     return (
         <div className="bg-gray-100 h-screen p-6">
             <div>
-                <button className="flex gap-1 items-center" onClick={() => { router.push('/') }}><MoveLeft />Go back </button>
+
             </div>
             <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg  p-6 mt-10 ">
                 <h2 className="text-3xl font-bold mb-1 text-center">My Account</h2>
@@ -97,13 +99,12 @@ export default function Profilepage() {
                 <div className="flex flex-col items-center mb-6">
                     {profileImage || storedUser.profileImage ? (
                         <Image
-                            src={
-                                storedUser.profileImage ? storedUser?.profileImage : ""
-                            }
+                            src={profileImage ?? storedUser.profileImage ?? '/default-avatar.png'}
+
                             alt="Profile"
-                            width={100}
-                            height={100}
-                            className="rounded-full object-cover"
+                            width={200}
+                            height={200}
+                            className="rounded-full  w-30 h-30 object-cover"
                         />
                     ) : (
                         <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">

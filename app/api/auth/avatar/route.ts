@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
     try {
         const formData = await req.formData();
         const file = formData.get('avatar') as File;
-        console.log(file)
 
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
@@ -47,7 +46,7 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        return NextResponse.json({ message: 'Upload successful' });
+        return NextResponse.json({ message: 'Upload successful', profileImage: result.secure_url });
     } catch (error) {
         console.error('Upload error:', error);
         return NextResponse.json({ message: 'Error uploading image', error }, { status: 400 });
