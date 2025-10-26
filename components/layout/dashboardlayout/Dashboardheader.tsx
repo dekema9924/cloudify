@@ -1,8 +1,8 @@
 
 
 import React from 'react'
-import Logo from './Logo'
-import Avatar from '../ui/Avatar'
+import Logo from '@/components/layout/Logo'
+import Avatar from '@/components/ui/Avatar'
 import Link from 'next/link'
 
 export default function Dashboardheader() {

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUserProfile } from '@/lib/client/features/userSlice';
+import { clearUserProfile, setUserProfile } from '@/lib/client/features/userSlice';
 import { getUserProfile } from '@/lib/client/api/authClient';
 
 export default function useAuthLoader() {
@@ -15,6 +15,10 @@ export default function useAuthLoader() {
                 if (data.user?._id) {
                     dispatch(setUserProfile(data.user));
                 }
+                else {
+                    dispatch(clearUserProfile())
+                }
+
             } catch (error) {
                 console.error('Failed to fetch user on load:', error);
             }
