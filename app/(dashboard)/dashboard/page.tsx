@@ -4,12 +4,11 @@
 
 import React from "react";
 import { Image, EllipsisVertical } from "lucide-react";
+import UploadModal from "@/components/modals/UploadModal";
 
 export default function DashboardPage() {
     return (
         <div className="space-y-6">
-
-
             {/* Example content grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {Array.from({ length: 6 }).map((_, idx) => (

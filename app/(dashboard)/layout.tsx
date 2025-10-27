@@ -6,9 +6,10 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import useAuthLoader from "@/hooks/useAuthLoader";
 import Dashboardpage from "./dashboard/page";
-// import ActionHeader from "@/components/layout/dashboardlayout/ActionHeader";
 import { Playfair_Display } from 'next/font/google'
 import ActionHeader from "@/components/layout/dashboardlayout/ActionHeader";
+import Bg from "@/components/ui/Bg";
+import UploadModalComp from "@/components/modals/UploadModal";
 
 const playfair = Playfair_Display({
     subsets: ['latin'],
@@ -54,25 +55,33 @@ export default function DashboardLayout({
     };
 
     return (
-        <div className={`relative min-h-screen flex bg-gray-50 ${playfair.className}`}>
-            {/* Sidebar — only show on dashboard routes */}
-            {!isProfileRoute && (
-                <DashBoardSidebar {...({ activeTab, setActiveTab } as any)} />
-            )}
+        <>
 
-            {/* Main Content */}
-            <div className="flex-1">
-                <Dashboardheader />
-
-                <main className="p-6">
-                    {pathname.includes("/dashboard") && <ActionHeader />}
+            <UploadModalComp />
 
 
-                    {/* Only show tab content on /dashboard route */}
-                    {!isProfileRoute ? renderContent() : children}
+            <div className={` relative min-h-screen flex bg-gray-50  ${playfair.className}`}>
+                <Bg />
+                {/* Sidebar — only show on dashboard routes */}
+                {!isProfileRoute && (
+                    <DashBoardSidebar {...({ activeTab, setActiveTab } as any)} />
+                )}
 
-                </main>
+                {/* Main Content */}
+                <div className="flex-1">
+                    <Dashboardheader />
+
+                    <main className="p-6">
+                        {pathname.includes("/dashboard") && <ActionHeader />}
+
+
+                        {/* Only show tab content on /dashboard route */}
+                        {!isProfileRoute ? renderContent() : children}
+
+                    </main>
+                </div>
             </div>
-        </div>
+
+        </>
     );
 }

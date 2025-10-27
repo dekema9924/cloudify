@@ -4,9 +4,11 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearUserProfile, setUserProfile } from '@/lib/client/features/userSlice';
 import { getUserProfile } from '@/lib/client/api/authClient';
+import { useRouter } from 'next/navigation';
 
 export default function useAuthLoader() {
     const dispatch = useDispatch();
+    const router = useRouter()
 
     useEffect(() => {
         async function fetchUser() {
@@ -17,6 +19,7 @@ export default function useAuthLoader() {
                 }
                 else {
                     dispatch(clearUserProfile())
+                    router.push('/')
                 }
 
             } catch (error) {
