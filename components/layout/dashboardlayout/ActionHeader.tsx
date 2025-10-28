@@ -1,5 +1,4 @@
 'use client'
-import MainButton from '@/components/ui/MainButton'
 import { Search } from 'lucide-react'
 import React from 'react'
 import { Grid3x3 } from 'lucide-react';
@@ -9,7 +8,9 @@ import { usemodalcontext } from '@/providers/ModalProvider';
 
 
 export default function ActionHeader() {
-    const { toggleUploadModal } = usemodalcontext()
+    const { toggleUploadModal, setTableMode } = usemodalcontext()
+
+
 
     return (
         <>
@@ -32,10 +33,10 @@ export default function ActionHeader() {
                 {/* Grid toggle */}
                 <div className='flex flex-col md:flex-row items-start md:items-center justify-between mt-10 gap-4 md:gap-0'>
                     <div className='bg-gray-200 w-full md:w-fit px-2 flex gap-2 rounded border-blue-100'>
-                        <span className='flex gap-1 items-center border-r border-blue-400 cursor-pointer p-1 bg-blue-100'>
+                        <span onClick={() => setTableMode('grid')} className='flex gap-1 items-center border-r border-blue-400 cursor-pointer p-1 bg-blue-100'>
                             <Grid3x3 />Grid
                         </span>
-                        <span className='flex gap-1 items-center cursor-pointer'>
+                        <span onClick={() => setTableMode('table')} className='flex gap-1 items-center cursor-pointer'>
                             <Grid2x2 />Table
                         </span>
                     </div>
