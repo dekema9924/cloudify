@@ -100,3 +100,35 @@ export async function updateAvatar(avatar: File) {
 }
 
 
+
+//upload fil to aws
+export async function uploadToS3(file: File) {
+  try {
+
+    let body = {
+      fileName: file.name,
+      filseSize: file.size,
+      fileType: file.type
+
+    }
+
+    const response = await axiosInstance.post('/api/files/presign', body, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response;
+  } catch (error: unknown) {
+    let message = 'Failed to upload file';
+
+    if (axios.isAxiosError(error)) {
+      message = error.response?.data?.message || error.message;
+    }
+
+    console.error('Upload error:', message);
+    throw new Error(message);
+  }
+}
+
+
+
